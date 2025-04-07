@@ -51,7 +51,7 @@ const [isMenuOpen, setIsMenuOpen] = useState(false);
   
   return (
       <div className="navbarBox">
-          <img className="iphone-menu" src="assets/menu.svg" onClick={toggleMenu} />
+          <img className="iphone-menu" src="/menu.svg" onClick={toggleMenu} />
           
           {isMenuOpen && (
               <div className="navbar-under-homepage">
@@ -69,13 +69,13 @@ const [isMenuOpen, setIsMenuOpen] = useState(false);
             <img
               className="account-profile"
               alt="תצוגת משתמש"
-              src="assets/account-white.png"
+              src="/account-white.png"
             />
             היי {companyName}! </div>
           : <><Login />
             <Register /></>}
-         <img alt="" src="assets/shopping-cart.png" className="shopping-cart-home" />
-        <img alt="" src="assets/heart.png" className="heart-home"  />
+         <img alt="" src="/shopping-cart.png" className="shopping-cart-home" />
+        <img alt="" src="/heart.png" className="heart-home"  />
 
         {!isHomePage && (
           <button className="logout-button" onClick={logoutClick}>
@@ -86,7 +86,7 @@ const [isMenuOpen, setIsMenuOpen] = useState(false);
 
       </div>
       <div className="navbar-under-homepage">
-        <img className="logo-homepage" src="assets/market-logo.png" />
+        <img className="logo-homepage" src="/market-logo.png" />
         <NavLink to="/dash/about" className={(isActive) => isActive ? "active-navlink-nav" : ""}>אודות</NavLink>
                   <NavLink  className={(isActive) => isActive ? "active-navlink-nav" : ""}>המוצרים שלנו</NavLink>
                   <NavLink  className={(isActive) => isActive ? "active-navlink-nav" : ""}>מה אומרים עלינו?</NavLink>

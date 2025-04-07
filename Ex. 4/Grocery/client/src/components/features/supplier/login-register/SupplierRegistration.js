@@ -167,7 +167,7 @@ const SupplierRegistration = () => {
         {selectedRegister && <PopUp width={'350px'} close={closeModal} className="pop-up">
             <div className='login-page'>
     <form id="loginForm" className="login-page-form" onSubmit={handleSubmit}>
-    <img src="assets/xMark.png" alt="close" className="img-back" onClick={closeModal} />
+    <img src="/xMark.png" alt="close" className="img-back" onClick={closeModal} />
     <h1 className="login-h1">איזה כיף לעבוד איתך!</h1>
 <div>
         <label className="login-item name">שם חברה:</label>

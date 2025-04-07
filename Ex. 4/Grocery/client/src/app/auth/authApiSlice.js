@@ -11,7 +11,6 @@ const authApiSlice = apiSlice.injectEndpoints({
                 try {
                     const { data } = await queryFulfilled
                     if (data.accessToken) {
-                        //בגלל שהפעולה בסטור מקבלת אותו כאובייקט צריך לשלוח אותו כאובייקט
                         dispatch(setCredentials({ accessToken: data.accessToken }))
                     }
                 } catch (err) {

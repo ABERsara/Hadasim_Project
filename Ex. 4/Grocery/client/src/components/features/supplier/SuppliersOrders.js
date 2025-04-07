@@ -25,7 +25,7 @@ const SupplierOrders = () => {
   const getOrderStatusText = (status) => {
     switch (status) {
       case "pending":
-        return "ממתין";
+        return  "ממתין לאישור";
       case "completed":
         return "הזמנה התקבלה";
       case "inProgress":

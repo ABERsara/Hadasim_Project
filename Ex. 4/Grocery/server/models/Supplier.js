@@ -18,6 +18,10 @@ const supplierSchema = new mongoose.Schema(
             type: String,
             required: true
         },
+        // permission: {
+        //     type: String,
+        //     default:'Supplier'
+        // },
         goodsList: {
             type: [{
                 type: mongoose.Schema.Types.ObjectId,

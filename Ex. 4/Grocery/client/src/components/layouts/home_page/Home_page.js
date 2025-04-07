@@ -1,6 +1,5 @@
 import { Link, NavLink, Navigate, useNavigate } from "react-router-dom";
 import "./home_page.css";
-import Footer from "../footer/Footer";
 import { useEffect } from "react";
 import Navbar from "../navbar/Navbar"
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -31,7 +30,7 @@ const HomePage = () => {
                 </div>
                 <div className="grocery">
 
-                    <img className="grocery-image" src="assets/grocery.png" />
+                    <img className="grocery-image" src="/grocery.png" />
                 </div>
             </div>
 

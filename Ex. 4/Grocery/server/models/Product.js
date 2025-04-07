@@ -13,7 +13,8 @@ const productSchema = new mongoose.Schema(
         minimumQuantity: {
             type: Number,
             required: true
-        }
+        },
+       
     },
     { timestamps: true }
 );

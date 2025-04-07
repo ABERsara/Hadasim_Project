@@ -1,14 +1,11 @@
 const mongoose = require('mongoose');
 
 const stockSchema = new mongoose.Schema({
-  name: {
-    type: String,
+  product: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Product',
     required: true,
-  },
-  uniqueId: {
-    type: String,
-    required: true,
-    unique: true, // מק"ט או ברקוד
+    unique: true, 
   },
   currentQuantity: {
     type: Number,
@@ -19,21 +16,14 @@ const stockSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  unit: {
-    type: String,
-    enum: ['יחידות', 'קרטונים', 'ק"ג', 'ליטרים', 'אחר'],
-    required: true,
-  },
+  // unit: {
+  //   type: String,
+  //   enum: ['יחידות', 'קרטונים', 'ק"ג', 'ליטרים', 'אחר'],
+  //   required: true,
+  // },
   suppliers: [{
-    supplierId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Supplier',
-      required: true,
-    },
-    price: {
-      type: Number,
-      required: true,
-    },
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Supplier',
   }],
 });
 

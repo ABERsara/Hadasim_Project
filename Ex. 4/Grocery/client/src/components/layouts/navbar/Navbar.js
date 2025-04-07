@@ -15,7 +15,7 @@ const Navbar = () => {
   const location = useLocation();
   const {companyName } = useAuth();
  
-//   const [currentImage, setCurrentImage] = useState(image ? `http://localhost:2024/public/uploads${image}` : "/noavatar.png")
+//   const [currentImage, setCurrentImage] = useState( `http://localhost:2024/public/uploads${image}` : "/account.png")
 
 const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -51,35 +51,32 @@ const [isMenuOpen, setIsMenuOpen] = useState(false);
   
   return (
       <div className="navbarBox">
-          <img className="iphone-menu" src="/menu.svg" onClick={toggleMenu} />
+          <img className="iphone-menu" src="assets/menu.svg" onClick={toggleMenu} />
           
           {isMenuOpen && (
               <div className="navbar-under-homepage">
-                  <NavLink to="/dash/about" className={(isActive) => isActive ? "active-navlink-nav" : ""}>אודות</NavLink>
-                  <NavLink to="/dash/astro" className={(isActive) => isActive ? "active-navlink-nav" : ""}>אסטרולוגיה</NavLink>
-                  <NavLink to="/dash/diagnosis" className={(isActive) => isActive ? "active-navlink-nav" : ""}>אבחונים</NavLink>
-                  <NavLink to="/dash/reviews" className={(isActive) => isActive ? "active-navlink-nav" : ""}>מה אומרים עלינו?</NavLink>
-                  <NavLink to="/dash/courses" className={(isActive) => isActive ? "active-navlink-nav" : ""}>קורסים</NavLink>
+                  <NavLink  className={(isActive) => isActive ? "active-navlink-nav" : ""}>אודות</NavLink>
+                  <NavLink  className={(isActive) => isActive ? "active-navlink-nav" : ""}>אסטרולוגיה</NavLink>
+                  <NavLink  className={(isActive) => isActive ? "active-navlink-nav" : ""}>אבחונים</NavLink>
+                  <NavLink  className={(isActive) => isActive ? "active-navlink-nav" : ""}>מה אומרים עלינו?</NavLink>
+                  <NavLink  className={(isActive) => isActive ? "active-navlink-nav" : ""}>קורסים</NavLink>
                   <button onClick={() => scrollToSection("contact-section")}>יצירת קשר</button>
-                  {/* הוסף כאן אפשרויות נוספות אם צריך */}
               </div>
           )}
       <div className="navbar-top-homepage">
         {companyName?
           <div className="nav-hello">
-            {/* <img
+            <img
               className="account-profile"
-              alt=""
-              src={getFilePath(currentImage ? currentImage : image)}
-              onClick={() => navigate("/dash/user/editProfile")} 
-            /> */}
+              alt="תצוגת משתמש"
+              src="assets/account-white.png"
+            />
             היי {companyName}! </div>
           : <><Login />
             <Register /></>}
          <img alt="" src="assets/shopping-cart.png" className="shopping-cart-home" />
         <img alt="" src="assets/heart.png" className="heart-home"  />
 
-        {/* הצגת כפתור היציאה רק אם המשתמש לא נמצא בדף הבית */}
         {!isHomePage && (
           <button className="logout-button" onClick={logoutClick}>
             <MdLogout />
@@ -93,7 +90,6 @@ const [isMenuOpen, setIsMenuOpen] = useState(false);
         <NavLink to="/dash/about" className={(isActive) => isActive ? "active-navlink-nav" : ""}>אודות</NavLink>
                   <NavLink  className={(isActive) => isActive ? "active-navlink-nav" : ""}>המוצרים שלנו</NavLink>
                   <NavLink  className={(isActive) => isActive ? "active-navlink-nav" : ""}>מה אומרים עלינו?</NavLink>
-                  {/* <NavLink to="" className={(isActive) => isActive ? "active-navlink-nav" : ""}></NavLink> */}
                   <button onClick={() => scrollToSection("contact-section")}>יצירת קשר</button>
       </div>
 

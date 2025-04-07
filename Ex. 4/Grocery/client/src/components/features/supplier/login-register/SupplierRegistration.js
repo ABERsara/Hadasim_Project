@@ -163,7 +163,7 @@ const SupplierRegistration = () => {
 
     return (
         <div>
-            <button className="login" onClick={() => setSelectedRegister(true)}>הרשמה</button>
+            <button className="login-from-home" onClick={() => setSelectedRegister(true)}>הרשמה</button>
         {selectedRegister && <PopUp width={'350px'} close={closeModal} className="pop-up">
             <div className='login-page'>
     <form id="loginForm" className="login-page-form" onSubmit={handleSubmit}>

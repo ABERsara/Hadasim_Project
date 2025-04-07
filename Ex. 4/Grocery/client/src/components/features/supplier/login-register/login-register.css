@@ -1,15 +1,3 @@
-/* שולטים בגודל המודל */
-.custom-swal-modal {
-    width: 100%;
-    max-width: 350px;
-    height: auto;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-.swal2-popup {
-    padding: 0 !important;
-}
 
 .login-page-form {
     width: 100%;

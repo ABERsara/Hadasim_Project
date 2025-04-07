@@ -19,6 +19,7 @@ function App() {
           <Route path="/login" element={<SupplierLogin />} />
           <Route path="/suppliers" element={<Outlet />}>
             <Route index element={<SuppliersOrders />} />
+            <Route path=":_id" element={<OrderDetails />} />
           </Route>
           <Route path="orders" element={<Outlet />}>
             <Route index element={<OrdersList />} />

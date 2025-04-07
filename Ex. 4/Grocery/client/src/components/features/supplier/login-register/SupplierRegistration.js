@@ -3,7 +3,7 @@ import { useRegisterMutation } from '../../../../app/auth/authApiSlice';
 import { useAddProductMutation, useGetAllProductsQuery } from '../../products/productApiSlice';
 import { useNavigate } from 'react-router-dom';
 import PopUp from '../../Popup';
-import "./login-register.css"
+import "./register.css"
     
 const SupplierRegistration = () => {
     const [supplierData, setSupplierData] = useState({
@@ -163,93 +163,105 @@ const SupplierRegistration = () => {
 
     return (
         <div>
-            <button className="login-from-home" onClick={() => setSelectedRegister(true)}>הרשמה</button>
-        {selectedRegister && <PopUp width={'350px'} close={closeModal}><form onSubmit={handleSubmit}>
-            <label>שם חברה:</label>
-            <input type="text" name="companyName" value={supplierData.companyName} onChange={handleChange} required />
-
-            <label>מספר טלפון:</label>
-            <input type="tel" name="phoneNumber" value={supplierData.phoneNumber} onChange={handleChange} required />
-
-            <label>שם נציג:</label>
-            <input type="text" name="representativeName" value={supplierData.representativeName} onChange={handleChange} required />
-
-            <label>סיסמה:</label>
-            <input type="password" name="password" value={supplierData.password} onChange={handleChange} required />
-
-            <label>מוצרים קיימים:</label>
-            {isProductsLoading ? (
-                <p>טוען מוצרים...</p>
-            ) : isProductsError ? (
-                <p>שגיאה בטעינת מוצרים.</p>
-            ) :
-            sortedProducts && Array.isArray(sortedProducts) ? (
-                sortedProducts.map((product) => {
-                        const isChecked = supplierData.goodsList.includes(product._id);
-                        return (
-                            <div key={product._id}>
-                                <label>
-                                    <input
-                                        type="checkbox"
-                                        value={product._id}
-                                        checked={isChecked}
-                                        onChange={(e) => handleExistingProductSelection(product._id, e.target.checked)}
-                                    />
-                                    {product.productName} - מחיר: {product.price}, כמות מינימלית: {product.minimumQuantity}
-                                </label>
-                            </div>
-                        );
-                    })
-                ) : null}
-            <button type="button" onClick={() => setAddingProducts(!addingProducts)}>
-                {!addingProducts ? 'הוסף מוצרים':''}
-            </button>
-            {addingProducts && (
-                <>
-                    <label>מוצרים חדשים:</label>
-                    {newProducts.map((product, index) => (
-
-                        <div key={index}>
+            <button className="login" onClick={() => setSelectedRegister(true)}>הרשמה</button>
+        {selectedRegister && <PopUp width={'350px'} close={closeModal} className="pop-up">
+            <div className='login-page'>
+    <form id="loginForm" className="login-page-form" onSubmit={handleSubmit}>
+    <img src="assets/xMark.png" alt="close" className="img-back" onClick={closeModal} />
+    <h1 className="login-h1">איזה כיף לעבוד איתך!</h1>
+<div>
+        <label className="login-item name">שם חברה:</label>
+        <input type="text" name="companyName" value={supplierData.companyName} onChange={handleChange} required />
+        </div>
+        <div>
+        <label className="login-item password">מספר טלפון:</label>
+        <input type="tel" name="phoneNumber" value={supplierData.phoneNumber} onChange={handleChange} required />
+</div>
+<div>
+        <label className="login-item password">שם נציג:</label>
+        <input type="text" name="representativeName" value={supplierData.representativeName} onChange={handleChange} required />
+        </div>
+        <div>
+        <label className="login-item password">סיסמה:</label>
+        <input type="password" name="password" value={supplierData.password} onChange={handleChange} required />
+        </div>
+        <div>
+        <label>מוצרים קיימים:</label>
+        {isProductsLoading ? (
+            <p>טוען מוצרים...</p>
+        ) : isProductsError ? (
+            <p className="error">שגיאה בטעינת מוצרים.</p>
+        ) :
+        sortedProducts && Array.isArray(sortedProducts) ? (
+            sortedProducts.map((product) => {
+                const isChecked = supplierData.goodsList.includes(product._id);
+                
+                return (
+                    <div key={product._id} className="checkbox-container">
+                        <label>
                             <input
-                                type="text"
-                                placeholder="שם מוצר"
-                                value={product.productName}
-                                onChange={(e) => handleNewProductChange(index, 'productName', e.target.value)}
-                                required
+                                type="checkbox"
+                                value={product._id}
+                                checked={isChecked}
+                                onChange={(e) => handleExistingProductSelection(product._id, e.target.checked)}
                             />
-                            <input
-                                type="number"
-                                placeholder="מחיר מוצר"
-                                value={product.price}
-                                onChange={(e) => handleNewProductChange(index, 'price', e.target.value)}
-                                step="0.01" 
-                                min="1"
-                                required
-                            />
-                            <input
-                                type="number"
-                                placeholder="כמות מינימלית"
-                                value={product.minimumQuantity}
-                                onChange={(e) => handleNewProductChange(index, 'minimumQuantity', parseInt(e.target.value))}
-                                min="1"
-                                required
-                                
-                            />
-                            <button type="button" onClick={() => handleApproveProduct(product)}>אישור</button>
-                        </div>
-                    ))}
-                    <button type="button" onClick={addProduct}>הוסף מוצר</button>
-                </>
-            )}
+                            {product.productName} - מחיר: {product.price}, כמות מינימלית: {product.minimumQuantity}
+                        </label>
+                    </div>
+                );
+            })
+        ) : null}
+</div>
+        <button className="add-product-button" type="button" onClick={() => setAddingProducts(!addingProducts)}>
+            {!addingProducts ? 'הוסף מוצרים' : ''}
+        </button>
 
+        {addingProducts && (
+            <>
+                <label>מוצרים חדשים:</label>
+                {newProducts.map((product, index) => (
+                    <div key={index}>
+                        <input
+                            type="text"
+                            placeholder="שם מוצר"
+                            value={product.productName}
+                            onChange={(e) => handleNewProductChange(index, 'productName', e.target.value)}
+                            required
+                        />
+                        <input
+                            type="number"
+                            placeholder="מחיר מוצר"
+                            value={product.price}
+                            onChange={(e) => handleNewProductChange(index, 'price', e.target.value)}
+                            step="0.01" 
+                            min="1"
+                            required
+                        />
+                        <input
+                            type="number"
+                            placeholder="כמות מינימלית"
+                            value={product.minimumQuantity}
+                            onChange={(e) => handleNewProductChange(index, 'minimumQuantity', parseInt(e.target.value))}
+                            min="1"
+                            required
+                        />
+                        <button type="button" onClick={() => handleApproveProduct(product)}>אישור</button>
+                    </div>
+                ))}
+                <button className="add-product-button" type="button" onClick={addProduct}>הוסף מוצר</button>
+            </>
+        )}
 
-            <button type="submit" disabled={isLoading}>רשום ספק</button>
+        <button type="submit" disabled={isLoading}>רשום ספק</button>
 
-            {isSuccess && <p>ספק נרשם בהצלחה!</p>}
-            {isError && <p>שגיאה ברישום הספק.</p>}
-        </form></PopUp>}
+        {isSuccess && <p>ספק נרשם בהצלחה!</p>}
+        {isError && <p className="error">שגיאה ברישום הספק.</p>}
+    </form>
+    </div>
+</PopUp>}
         </div>
     );
 };
 
 export default SupplierRegistration;
+

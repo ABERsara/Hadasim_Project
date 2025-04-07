@@ -22,10 +22,8 @@ def split_csv_by_date(input_file_path, output_dir="daily_parts"):
             daily_data.to_csv(daily_file_path, index=False)
 
     except FileNotFoundError:
-        print(f"Error: Input file '{input_file_path}' not found.")
         return None
     except Exception as e:
-        print(f"An error occurred during file splitting: {e}")
         return None
     return output_dir
 
@@ -42,10 +40,7 @@ def process_daily_file(daily_file_path, output_dir="daily_parts"):
     """
     try:
         daily_df = pd.read_csv(daily_file_path)
-        # if 'timestamp' not in daily_df.columns:
-        #     print(f"Error: 'timestamp' column not found in {daily_file_path}")
-        #     return None
-        # daily_df['timestamp'] = pd.to_datetime(daily_df['timestamp'])
+
         validated_data = validate_data(daily_df.copy())
         if not validated_data.empty:
             hourly_avg = calc_hour_avg(validated_data)
@@ -54,13 +49,10 @@ def process_daily_file(daily_file_path, output_dir="daily_parts"):
             save_to_csv(hourly_avg, output_hourly_file)
             return output_hourly_file
         else:
-            print(f"Skipping hourly averages for {os.path.basename(daily_file_path)} due to validation errors.")
             return None
     except FileNotFoundError:
-        print(f"Error: Daily file '{daily_file_path}' not found.")
         return None
     except Exception as e:
-        print(f"An error occurred while processing '{daily_file_path}': {e}")
         return None
 
 def combine_hourly_average_files(output_dir="daily_parts", final_output_file="final_hourly_averages.csv"):
@@ -80,14 +72,12 @@ def combine_hourly_average_files(output_dir="daily_parts", final_output_file="fi
             temp_df = pd.read_csv(file)
             final_averages_list.append(temp_df)
         except Exception as e:
-            print(f"Error reading file '{file}': {e}")
+            return None
 
     if final_averages_list:
         final_averages_df = pd.concat(final_averages_list, ignore_index=True)
         final_output_path = os.path.join(output_dir, final_output_file)
         save_to_csv(final_averages_df, final_output_path)
-    else:
-        print("\nNo valid hourly average files found to combine.")
 
 def process_data_modular(input_file_path, output_dir="daily_parts", final_output_file="final_hourly_averages.csv"):
     """
@@ -110,5 +100,3 @@ def process_data_modular(input_file_path, output_dir="daily_parts", final_output
                     hourly_files_processed.append(hourly_file)
 
         combine_hourly_average_files(output_directory, final_output_file)
-    else:
-        print("File splitting failed, cannot proceed with processing.")

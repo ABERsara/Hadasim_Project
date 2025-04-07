@@ -21,7 +21,6 @@ def split_log_file(file_path, parts_size=100000):
                     part_file.writelines(part)
                 part = []
                 part_number += 1
-        # Handle the last part
         if part:
             with open(f'log_part_{part_number}.txt', 'w', encoding='utf-8') as part_file:
                 part_file.writelines(part)
@@ -42,7 +41,6 @@ def count_error_codes(file_path):
         for line in file:
             match = error_code_pattern.search(line)
             if match:
-                # match.group(1)=(\w+)
                 error_counts[match.group(1)] += 1
     return error_counts
 

@@ -34,7 +34,6 @@ def process_data_in_parts(file_path):
     daily_avg = []
 
     for date, daily_data in df.groupby('date'):
-        # Validate data before processing each part
         validated_data = validate_data(daily_data.copy())
         if not validated_data.empty:
             hourly_avg = calc_hour_avg(validated_data)
@@ -106,20 +105,17 @@ def calc_overall_hourly_avg(file_path):
     try:
         df = pd.read_csv(file_path)
 
-        # Validate all data
         validated_df = validate_data(df.dropna().copy())
 
         if validated_df.empty:
             print("Data validation failed, cannot calculate overall hourly averages.")
             return pd.DataFrame()
 
-        # Extracting the hour
         validated_df['hour'] = validated_df['timestamp'].dt.hour
 
-        # Grouping by hour and calculating the mean
         overall_avg = validated_df.groupby('hour')['value'].mean().reset_index()
         overall_avg.rename(columns={'hour': 'Hour', 'value': 'Average'}, inplace=True)
-        overall_avg['Hour'] = overall_avg['Hour'].astype(int).apply(lambda x: f"{x:02d}:00") # Pretty hour format
+        overall_avg['Hour'] = overall_avg['Hour'].astype(int).apply(lambda x: f"{x:02d}:00")
 
         return overall_avg
 
@@ -147,8 +143,6 @@ def save_to_csv(hourly_avg_df, output_file_path):
         print(f"An error occurred while saving to CSV: {e}")
 
 
-
-
 # Parquet format support
 def process_data(file_path):
     """
@@ -169,7 +163,6 @@ def process_data(file_path):
     else:
         raise ValueError("Unsupported file format. Only CSV and Parquet are supported.")
 
-    # Validate data before processing
     validated_df = validate_data(df, file_type=file_type)
 
     if validated_df.empty:

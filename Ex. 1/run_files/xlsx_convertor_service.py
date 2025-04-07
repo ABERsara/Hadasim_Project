@@ -64,7 +64,7 @@ def convert_xlsx_to_csv(excel_file_path, csv_file_path):
         df.to_csv(csv_file_path, index=False)
 
     except FileNotFoundError:
-        print(f"Error: File not found at '{excel_file_path}'.")
+        return None
     except Exception as e:
-        print(f"An error occurred: {e}")
+        return None
 

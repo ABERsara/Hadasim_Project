@@ -13,10 +13,8 @@ xlsx_file_path = os.getenv('XLSX_FILE_PATH')
 csv_file_path = os.getenv('CSV_FILE_PATH')
 parquet_file_path = os.getenv('PARQUET_FILE_PATH')
 
-# Converting Excel file to CSV
 # convert_xlsx_to_csv(xlsx_file_path, csv_file_path)
 
-# Reading the CSV file
 df = pd.read_csv(csv_file_path)
 
 # Processing the CSV file to get hourly averages

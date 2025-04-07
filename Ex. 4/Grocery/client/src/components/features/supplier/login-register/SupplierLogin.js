@@ -64,9 +64,9 @@ const LoginPage = () => {
                 <div className="login-page">
                     <form id="loginForm" className="login-page-form" onSubmit={onsubmit}>
                         <img src="assets/xMark.png" alt="close" className="img-back" onClick={closeModal} />
-                        <h1 className="login-h1">איזה כיף שבאת אלינו!</h1>
+                        <h1 className="login-h1">איזה כיף לעבוד איתך!</h1>
                         <div>
-                            <label className="login-item name">שם:</label>
+                            <label className="login-item name">מספר נייד:</label>
                             <input type="text" required name="phoneNumber" value={formData.phoneNumber} onChange={handleChange} />
                         </div>
                         <div className="login-item password">

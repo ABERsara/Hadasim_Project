@@ -79,12 +79,10 @@ VALUES
       DECLARE @SpouseId INT;
       DECLARE @Gender VARCHAR(10);
 
-      -- Assign values from the inserted row to the variables
       SELECT @PersonId = Person_Id, @FatherId = Father_Id, @MotherId = Mother_Id, @SpouseId = Spouse_Id, @Gender = Gender
       FROM inserted;
 
-      -- Add father relationship if exists
-      --connection of two sides: father-son/daughter, son/daughter-father
+      
       IF @FatherId IS NOT NULL
       BEGIN
         INSERT INTO FamilyTree (Person_Id, Relative_Id, Connection_Type)
@@ -98,7 +96,7 @@ VALUES
               END);
       END
 
-      -- Add mother relationship if exists
+      
       IF @MotherId IS NOT NULL
       BEGIN
         INSERT INTO FamilyTree (Person_Id, Relative_Id, Connection_Type)
@@ -112,7 +110,7 @@ VALUES
               END);
       END
 
-      -- Add spouse relationship if exists
+      
       IF @SpouseId IS NOT NULL
       BEGIN
         INSERT INTO FamilyTree (Person_Id, Relative_Id, Connection_Type)
@@ -145,7 +143,7 @@ VALUES
     AS
     BEGIN
 
-      -- Check if the Spouse_Id column was updated
+      
         IF UPDATE(Spouse_Id)
         BEGIN
             DECLARE @PersonId INT;
@@ -154,7 +152,6 @@ VALUES
             SELECT @PersonId = Person_Id, @SpouseId = Spouse_Id
             FROM inserted;
 
-            --  Create the new spouse if it doesn't exist
             IF NOT EXISTS (SELECT 1 FROM Persons WHERE Person_Id = @SpouseId)
             BEGIN
                 INSERT INTO Persons (Person_Id, Gender, Spouse_Id)
@@ -166,7 +163,6 @@ VALUES
                     @PersonId);
             END;
 
-            --  Update the spouse in the Persons table
             IF EXISTS (SELECT 1 FROM Persons WHERE Person_Id = @SpouseId)
             BEGIN
                 UPDATE Persons
@@ -174,7 +170,6 @@ VALUES
                 WHERE Person_Id = @SpouseId;
             END;
 
-            --  Create the relationship in FamilyTree (first direction)
             IF NOT EXISTS (
                 SELECT 1
                 FROM FamilyTree
@@ -191,7 +186,6 @@ VALUES
                     END;
             END;
 
-            --  Create the relationship in FamilyTree (second direction)
             IF NOT EXISTS (
                 SELECT 1
                 FROM FamilyTree

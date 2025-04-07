@@ -1,0 +1,68 @@
+.list {
+  background-color: var(--bgSoft);
+  padding: 20px;
+  border-radius: 10px;
+  margin-top: 20px;
+  color: var(--text);
+}
+
+.list-table {
+  width: 100%;
+  text-align: center;
+  border-collapse: collapse;
+}
+
+.list-table tr {
+  transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out;
+}
+
+.list-table tr.hovered {
+  background-color: var(--lightBlue);
+  transform: scale(1.02); /* הגדלת השורה */
+}
+
+.list-table,
+.list-table td {
+  border: none;
+}
+
+.list-table td {
+  padding: 10px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+}
+
+.list-button {
+  padding: 5px 10px;
+  border-radius: 5px;
+  color: var(--text);
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.list-view {
+  background-color: var(--lightBlue);
+  font-family: "Varela Round", serif;
+  font-weight: 400;
+  text-align: right;
+  transition: all 0.3s ease;
+}
+
+.list-view:hover {
+  background-color: var(--text);
+  color: var(--lightBlue);
+}
+
+.list-approved {
+  background-color: var(--orange);
+  font-family: "Varela Round", serif;
+  font-weight: 400;
+  text-align: right;
+  transition: all 0.3s ease;
+}
+
+.list-approved:hover {
+  background-color: var(--text);
+  color: var(--orange);
+}

@@ -67,3 +67,25 @@
   background-color: var(--text);
   color: var(--orange);
 }
+.orders-list-top{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+}
+.add-button{
+  background-color: var(--orange);
+  color: var(--text);
+  padding: 8px 12px;
+  border-radius: 15px;
+  color: var(--text);
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+ 
+  
+}
+.add-button:hover{
+  background-color: var(--text);
+  color: var(--orange);
+}

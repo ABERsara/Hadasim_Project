@@ -7,6 +7,7 @@ const OrdersList = () => {
     const { data: ordersObject, isError, error, isLoading, isSuccess } = useGetAllordersQuery();
     const [updateStatusOrder, { isSuccess: isUpdateSuccess, isLoading: isUpdateLoading }] = useUpdateStatusOrderMutation();
     const [updatedOrders, setUpdatedOrders] = useState({});
+    const [hoveredRow, setHoveredRow] = useState(null);  // נוספה סטייט לעקוב אחרי השורה המורחבת
 
     const handleApprove = async (orderId) => {
         try {
@@ -34,13 +35,13 @@ const OrdersList = () => {
     if (isError) return <h1>{JSON.stringify(error)}</h1>;
 
     return (
-        <div className="orders-list">
-            <div className="orders-list-top">
-                <Link to="/orders/add" className="orders-list-add-button">
+        <div className="list">
+            <div className="list-top">
+                <Link to="/orders/add" className="list-button add-button">
                     הזמנה חדשה
                 </Link>
             </div>
-            <table className="orderss-list-table">
+            <table className="list-table">
                 <thead>
                     <tr>
                         <td>שם הספק</td>
@@ -53,13 +54,19 @@ const OrdersList = () => {
                 </thead>
                 <tbody>
                     {ordersObject.data?.map((order) => (
-                        <tr key={order._id}>
+                        <tr key={order._id}
+                        className={hoveredRow === order._id ? 'hovered' : ''}
+                        onMouseEnter={() => setHoveredRow(order._id)}
+                onMouseLeave={() => setHoveredRow(null)}>
                             <td>{order.supplierId.companyName}</td>
                             <td>{order.supplierId.representativeName}</td>
                             <td>{getOrderStatusText(order.status)}</td>
                             <td>
                                 <div className="orders-list-buttons">
-                                    <Link to={`${order._id}`} className="orders-list-button orders-list-view">
+                                    <Link 
+                                    to={`owner/${order._id}`} 
+                                    className="list-button list-view"
+                                    state={{ from: 'orders-list' }}>
                                         צפייה
                                     </Link>
                                 </div>
@@ -67,7 +74,9 @@ const OrdersList = () => {
                             <td>{format(new Date(order.createdAt), "dd-MM-yyyy")}</td>
                             <td>
                                 {order.status === "inProgress" && !updatedOrders[order._id] && (
-                                    <button onClick={() => handleApprove(order._id)}>אישור</button>
+                                    <button 
+                                    className="list-button list-approved"
+                                    onClick={() => handleApprove(order._id)}>אישור</button>
                                 )}
                             </td>
                         </tr>

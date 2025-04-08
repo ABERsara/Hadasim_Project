@@ -3,7 +3,7 @@ import { useUpdateStatusOrderMutation, useGetAllordersQuery } from "../Orders/or
 import { Link } from "react-router-dom";
 import { format } from "date-fns";
 import useAuth from "../../../hooks/useAuth";
-import "./supplier.css";
+import "./list.css";
 
 const SupplierOrders = () => {
   const { _id: supplierId } = useAuth();
@@ -66,7 +66,10 @@ const SupplierOrders = () => {
                 <td>{getOrderStatusText(order.status)}</td>
                 <td>
                   <div className="orders-list-buttons">
-                    <Link to={`${order._id}`} className="list-button list-view">
+                    <Link 
+                    to={`sup/${order._id}`} 
+                    className="list-button list-view"
+                    state={{ from: 'supplier-orders-list' }}>
                       צפייה
                     </Link>
                   </div>

@@ -1,8 +1,9 @@
-import { useNavigate, useParams } from 'react-router-dom';
 import { useGetSingleOrderQuery } from '../orderApiSlice';
+import { useNavigate, useLocation,useParams } from 'react-router-dom';
 import "./order_details.css"
 const OrderDetails = () => {
     const { _id } = useParams();
+    const { state } = useLocation(); 
     const { data: order, isLoading, isError, error } = useGetSingleOrderQuery(_id);
     const navigate = useNavigate()
     if (isLoading) return <h1>Loading...</h1>;
@@ -25,7 +26,13 @@ const OrderDetails = () => {
         }
     };
     const closeModal = () => {
-        navigate("/")
+        if (state?.from === 'orders-list') {
+            navigate("/orders");  
+        } else if (state?.from === 'supplier-orders-list') {
+            navigate("/suppliers");  
+        } else {
+            navigate("/orders");  
+        }
     };
     return (
         <div className="order-details-container">

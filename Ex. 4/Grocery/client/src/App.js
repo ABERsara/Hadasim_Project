@@ -12,7 +12,6 @@ import HomePage from "./components/layouts/home_page/Home_page";
 import AddStockItemForm from "./components/features/stock/add-stock/AddStockItem"; 
 import ProcessSalesForm from "./components/features/stock/process-sale/ProcessSalesForm"; 
 import StockItemsList from "./components/features/stock/stock-list/StockItemsList"; 
-
 function App() {
     return (
         <Router>
@@ -23,12 +22,12 @@ function App() {
                     <Route path="/login" element={<SupplierLogin />} />
                     <Route path="/suppliers" element={<Outlet />}>
                         <Route index element={<SuppliersOrders />} />
-                        <Route path=":_id" element={<OrderDetails />} />
+                        <Route path="sup/:_id" element={<OrderDetails />} />
                     </Route>
                     <Route path="orders" element={<Outlet />}>
                         <Route index element={<OrdersList />} />
                         <Route path="add" element={<AddOrder />} />
-                        <Route path=":_id" element={<OrderDetails />} />
+                        <Route path="owner/:_id" element={<OrderDetails />} />
                     </Route>
                     <Route path="stock" element={<Outlet />}>
                         <Route index element={<StockItemsList />} />

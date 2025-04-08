@@ -1,19 +1,9 @@
 const Stock = require('../models/Stock');
-const fs = require('fs').promises;
-
-async function readSalesData() {
-    try {
-        const salesData = await fs.readFile('../data/sales.json', 'utf8');
-        return JSON.parse(salesData);
-    } catch (error) {
-        console.error('Error reading sales data:', error);
-        throw error;
-    }
-}
-
+const stockService = require('../services/salesService');
 const processSales = async (req, res) => {
+
     try {
-        const sales = await readSalesData(); // קריאה מקובץ הJSON
+        const sales = req.body;
 
         for (const productName in sales) {
             const quantity = sales[productName];
@@ -21,6 +11,7 @@ const processSales = async (req, res) => {
             if (product) {
                 product.currentQuantity -= quantity;
                 await product.save();
+                await stockService.checkAndOrder(product._id); 
             } else {
                 console.log(`Product ${productName} not found.`);
             }

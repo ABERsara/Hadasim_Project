@@ -1,6 +1,5 @@
 const Product = require("../models/Product");
 
-// אחזור כל המוצרים
 const getProducts = async (req, res) => {
     const limit = parseInt(req.query.limit) || 0;
     try {
@@ -26,7 +25,6 @@ const getProducts = async (req, res) => {
     }
 };
 
-// אחזור מוצר בודד לפי ID
 const getProduct = async (req, res) => {
     const { _id } = req.params;
     try {
@@ -52,7 +50,6 @@ const getProduct = async (req, res) => {
     }
 };
 
-// הוספת מוצר חדש
 const addProduct = async (req, res) => {
     const { productName, price, minimumQuantity } = req.body;
     if (!productName || !price || !minimumQuantity) {

@@ -26,7 +26,7 @@ app.use("/api/orders", require("./routers/orderRouter"));
 app.use("/api/auth", require("./routers/authRouter"));
 app.use("/api/suppliers",require("./routers/suppliersRouter"))
 app.use("/api/stock",require("./routers/stockRouter"))
-
+app.use("/api/sales",require("./routers/salesRouter"))
 // טיפול בשגיאות ברמת השרת
 app.use((err, req, res, next) => {
     console.error(err.stack); // רישום סטקטראס של השגיאה

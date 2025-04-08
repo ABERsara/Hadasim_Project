@@ -11,7 +11,6 @@ const path = require("path");
 
 connectDB();
 
-// Middleware
 app.use(cors(corsOptions));
 app.use(cookieParser());
 app.use(express.json());
@@ -27,9 +26,9 @@ app.use("/api/auth", require("./routers/authRouter"));
 app.use("/api/suppliers",require("./routers/suppliersRouter"))
 app.use("/api/stock",require("./routers/stockRouter"))
 app.use("/api/sales",require("./routers/salesRouter"))
-// טיפול בשגיאות ברמת השרת
+
 app.use((err, req, res, next) => {
-    console.error(err.stack); // רישום סטקטראס של השגיאה
+    console.error(err.stack); 
     res.status(500).send("Something broke!");
 });
 

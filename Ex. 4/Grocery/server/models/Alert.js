@@ -5,7 +5,7 @@ const alertSchema = new mongoose.Schema(
         type: {
             type: String,
             required: true,
-            enum: ['No Suppliers', 'No Suitable Supplier', 'Low Stock', 'Order Created', 'Order Shipped', 'Other'] 
+            enum: ['No Suppliers', 'No Suitable Supplier', 'Low Stock', 'Other'] 
         },
         message: {
             type: String,

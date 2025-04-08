@@ -7,19 +7,19 @@ const getProducts = async (req, res) => {
         if (!products.length) {
             return res.status(404).json({
                 error: true,
-                message: "לא נמצאו מוצרים",
+                message: "No products found",
                 data: null
             });
         }
         res.json({
             error: false,
-            message: "מוצרים נמצאו",
+            message: "Products found",
             data: products
         });
     } catch (err) {
         return res.status(500).json({
             error: true,
-            message: "שגיאת שרת פנימית",
+            message: "Internal server error",
             data: null
         });
     }
@@ -32,19 +32,19 @@ const getProduct = async (req, res) => {
         if (!product) {
             return res.status(404).json({
                 error: true,
-                message: "מוצר לא נמצא",
+                message: "Product not found",
                 data: null
             });
         }
         res.json({
             error: false,
-            message: "מוצר נמצא",
+            message: "Product found",
             data: product
         });
     } catch (err) {
         return res.status(500).json({
             error: true,
-            message: "שגיאת שרת פנימית",
+            message: "Internal server error",
             data: null
         });
     }
@@ -55,12 +55,12 @@ const addProduct = async (req, res) => {
     if (!productName || !price || !minimumQuantity) {
         return res.status(400).json({
             error: true,
-            message: "שם מוצר, מחיר וכמות מינימלית נדרשים",
+            message: "Product name, price, and minimum quantity are required",
             data: null
         });
     }
     try {
-        // בדיקת כפילות
+        // Checking for duplicates
         const existingProduct = await Product.findOne({
             productName,
             price,
@@ -68,12 +68,12 @@ const addProduct = async (req, res) => {
         });
 
         if (existingProduct) {
-            return res.status(400).json({ message: 'מוצר כזה כבר קיים, בדוק ברשימת המוצרים.'+productName });
+            return res.status(400).json({ message: 'Product already exists, check the product list.'+productName });
         }
         const product = await Product.create({ productName, price, minimumQuantity });
         res.status(201).json({
             error: false,
-            message: "מוצר חדש נוצר " + productName,
+            message: "New product created " + productName,
             data: product
         });
     } catch (error) {

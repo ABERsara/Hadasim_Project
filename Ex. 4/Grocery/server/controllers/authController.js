@@ -2,7 +2,6 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const Supplier = require("../models/Supplier");
 
-// פונקציה ליצירת טוקן גישה
 const generateAccessToken = (supplier) => {
     
     const supInfo = {
@@ -15,12 +14,10 @@ const generateAccessToken = (supplier) => {
     return jwt.sign(supInfo, process.env.ACCESS_TOKEN, { expiresIn: "15m" });
 };
 
-// פונקציה ליצירת טוקן רענון
 const generateRefreshToken = (phoneNumber) => {
     return jwt.sign({ phoneNumber }, process.env.REFRESH_TOKEN, { expiresIn: "7d" });
 };
 
-// פונקציה לשמירת טוקן רענון בעוגייה
 const setRefreshTokenCookie = (res, refreshToken) => {
     res.cookie("jwt", refreshToken, {
         httpOnly: true,
@@ -28,7 +25,6 @@ const setRefreshTokenCookie = (res, refreshToken) => {
     });
 };
 
-// פונקציה לרישום ספק חדש
 const register = async (req, res) => {
     const { companyName, phoneNumber, representativeName, goodsList, password } = req.body;
     if (!companyName || !phoneNumber || !representativeName || !goodsList || !password) {
@@ -52,7 +48,6 @@ const register = async (req, res) => {
     }
 };
 
-// פונקציה להתחברות ספק קיים
 const login = async (req, res) => {
     const { phoneNumber, password } = req.body;
     if (!phoneNumber || !password) {
@@ -77,7 +72,6 @@ const login = async (req, res) => {
     }
 };
 
-// פונקציה לרענון טוקן גישה
 const refresh = async (req, res) => {
     const cookies = req.cookies;
     if (!cookies?.jwt) {
@@ -99,7 +93,6 @@ const refresh = async (req, res) => {
     });
 };
 
-// פונקציה ליציאה (logout)
 const logout = (req, res) => {
     const cookies = req.cookies;
     if (!cookies?.jwt) {

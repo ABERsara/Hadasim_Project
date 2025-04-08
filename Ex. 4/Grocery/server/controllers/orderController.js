@@ -2,37 +2,35 @@ const Order = require("../models/Order");
 const Supplier = require("../models/Supplier");
 const Product = require("../models/Product");
 
-// אחזור כל ההזמנות
 const getOrders = async (req, res) => {
     const limit = parseInt(req.query.limit) || 0;
     try {
         const orders = await Order.find({})
             .limit(limit)
-            .populate('supplierId', 'companyName') // רק שם החברה
-            .populate('products.productId', 'productName price') // רק שם ומחיר מוצר
+            .populate('supplierId', 'companyName')
+            .populate('products.productId', 'productName price')
             .lean();
         if (!orders.length) {
             return res.status(404).json({
                 error: true,
-                message: "לא נמצאו הזמנות",
+                message: "No orders found",
                 data: null
             });
         }
         res.json({
             error: false,
-            message: "הזמנות נמצאו",
+            message: "Orders found",
             data: orders
         });
     } catch (err) {
         return res.status(500).json({
             error: true,
-            message: "שגיאת שרת פנימית",
+            message: "Internal server error",
             data: null
         });
     }
 };
 
-// אחזור הזמנה בודדת לפי ID
 const getOrder = async (req, res) => {
     const { _id } = req.params;
     try {
@@ -43,41 +41,39 @@ const getOrder = async (req, res) => {
         if (!order) {
             return res.status(404).json({
                 error: true,
-                message: "הזמנה לא נמצאה",
+                message: "Order not found",
                 data: null
             });
         }
         res.json({
             error: false,
-            message: "הזמנה נמצאה",
+            message: "Order found",
             data: order
         });
     } catch (err) {
         return res.status(500).json({
             error: true,
-            message: "שגיאת שרת פנימית",
+            message: "Internal server error",
             data: null
         });
     }
 };
 
-// יצירת הזמנה חדשה
 const createOrder = async (req, res) => {
     const { supplierId, products } = req.body;
     if (!supplierId || !products || !products.length) {
         return res.status(400).json({
             error: true,
-            message: "ID ספק ורשימת מוצרים נדרשים",
+            message: "Supplier ID and product list are required",
             data: null
         });
     }
     try {
-        // בדיקה אם ספק ומוצרים קיימים
         const supplierExists = await Supplier.exists({ _id: supplierId });
         if (!supplierExists) {
             return res.status(400).json({
                 error: true,
-                message: "ספק לא קיים",
+                message: "Supplier does not exist",
                 data: null
             });
         }
@@ -86,14 +82,14 @@ const createOrder = async (req, res) => {
             if (!productExists) {
                 return res.status(400).json({
                     error: true,
-                    message: `מוצר ${product.productId} לא קיים`,
+                    message: `Product ${product.productId} does not exist`,
                     data: null
                 });
             }
             if (product.quantity <= 0) {
                 return res.status(400).json({
                     error: true,
-                    message: `כמות מוצר ${product.productId} לא תקינה`,
+                    message: `Product quantity ${product.productId} is invalid`,
                     data: null
                 });
             }
@@ -101,7 +97,7 @@ const createOrder = async (req, res) => {
         const order = await Order.create({ supplierId, products });
         res.status(201).json({
             error: false,
-            message: "הזמנה חדשה נוצרה",
+            message: "New order created",
             data: order
         });
     } catch (error) {
@@ -114,20 +110,19 @@ const createOrder = async (req, res) => {
     }
 };
 
-// עדכון סטטוס הזמנה
 const updateOrderStatus = async (req, res) => {
     const { _id, status } = req.body;
     if (!_id || !status) {
         return res.status(400).json({
             error: true,
-            message: "ID וסטטוס נדרשים",
+            message: "ID and status are required",
             data: null
         });
     }
     if (!['pending', 'inProgress', 'completed'].includes(status)) {
         return res.status(400).json({
             error: true,
-            message: "סטטוס לא תקין",
+            message: "Invalid status",
             data: null
         });
     }
@@ -136,7 +131,7 @@ const updateOrderStatus = async (req, res) => {
         if (!order) {
             return res.status(404).json({
                 error: true,
-                message: "הזמנה לא נמצאה",
+                message: "Order not found",
                 data: null
             });
         }
@@ -144,13 +139,13 @@ const updateOrderStatus = async (req, res) => {
         const updatedOrder = await order.save();
         res.json({
             error: false,
-            message: `סטטוס הזמנה עודכן ל-${status}`,
+            message: `Order status updated to ${status}`,
             data: updatedOrder
         });
     } catch (error) {
         return res.status(500).json({
             error: true,
-            message: "שגיאת שרת פנימית",
+            message: "Internal server error",
             data: null
         });
     }

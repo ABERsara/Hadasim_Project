@@ -1,6 +1,5 @@
 const Supplier = require("../models/Supplier");
 
-// אחזור כל הספקים
 const getSuppliers = async (req, res) => {
     const limit = parseInt(req.query.limit) || 0;
     try {
@@ -8,25 +7,24 @@ const getSuppliers = async (req, res) => {
         if (!suppliers.length) {
             return res.status(404).json({
                 error: true,
-                message: "לא נמצאו ספקים",
+                message: "No suppliers found",
                 data: null
             });
         }
         res.json({
             error: false,
-            message: "ספקים נמצאו",
+            message: "Suppliers found",
             data: suppliers
         });
     } catch (err) {
         return res.status(500).json({
             error: true,
-            message: "שגיאת שרת פנימית",
+            message: "Internal server error",
             data: null
         });
     }
 };
 
-// אחזור ספק בודד לפי ID
 const getSupplier = async (req, res) => {
     const { _id } = req.params;
     try {
@@ -34,48 +32,46 @@ const getSupplier = async (req, res) => {
         if (!supplier) {
             return res.status(404).json({
                 error: true,
-                message: "ספק לא נמצא",
+                message: "Supplier not found",
                 data: null
             });
         }
         res.json({
             error: false,
-            message: "ספק נמצא",
+            message: "Supplier found",
             data: supplier
         });
     } catch (err) {
         return res.status(500).json({
             error: true,
-            message: "שגיאת שרת פנימית",
+            message: "Internal server error",
             data: null
         });
     }
 };
 
-// הוספת ספק חדש
 const addSupplier = async (req, res) => {
     const { password, companyName, phoneNumber, representativeName, goodsList } = req.body;
     if (!password || !companyName || !phoneNumber || !representativeName || !goodsList || !goodsList.length) {
         return res.status(400).json({
             error: true,
-            message: "סיסמה, שם חברה, מספר טלפון, שם נציג ורשימת מוצרים נדרשים",
+            message: "Password, company name, phone number, representative name, and goods list are required",
             data: null
         });
     }
     try {
-        // בדיקה אם ספק עם שם חברה זהה כבר קיים
         const existingSupplier = await Supplier.findOne({ companyName }).lean();
         if (existingSupplier) {
-            return res.status(409).json({ // 409 Conflict
+            return res.status(409).json({
                 error: true,
-                message: "ספק עם שם חברה זה כבר קיים",
+                message: "Supplier with this company name already exists",
                 data: null
             });
         }
         const supplier = await Supplier.create({ password, companyName, phoneNumber, representativeName, goodsList });
         res.status(201).json({
             error: false,
-            message: "ספק חדש נוצר " + companyName,
+            message: "New supplier created " + companyName,
             data: supplier
         });
     } catch (error) {
@@ -87,7 +83,6 @@ const addSupplier = async (req, res) => {
         });
     }
 };
-// אחזור רשימת מוצרים של ספק לפי ID
 const getSupplierProducts = async (req, res) => {
     const { supplierId } = req.params;
     try {
@@ -95,19 +90,19 @@ const getSupplierProducts = async (req, res) => {
         if (!supplier) {
             return res.status(404).json({
                 error: true,
-                message: "ספק לא נמצא",
+                message: "Supplier not found",
                 data: null
             });
         }
         res.json({
             error: false,
-            message: "מוצרים של ספק נמצאו",
+            message: "Supplier's products found",
             data: supplier.goodsList
         });
     } catch (err) {
         return res.status(500).json({
             error: true,
-            message: "שגיאת שרת פנימית",
+            message: "Internal server error",
             data: null
         });
     }

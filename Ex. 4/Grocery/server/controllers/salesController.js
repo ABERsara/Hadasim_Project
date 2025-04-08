@@ -12,14 +12,11 @@ const processSales = async (req, res) => {
                 product.currentQuantity -= quantity;
                 await product.save();
                 await stockService.checkAndOrder(product._id); 
-            } else {
-                console.log(`Product ${productName} not found.`);
-            }
+            } 
         }
 
         res.status(200).json({ message: 'Sales data processed successfully' });
     } catch (error) {
-        console.error('Error processing sales data:', error);
         res.status(500).json({ message: 'Internal server error' });
     }
 };

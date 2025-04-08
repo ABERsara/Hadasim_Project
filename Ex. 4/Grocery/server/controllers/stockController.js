@@ -1,57 +1,57 @@
 const Stock = require('../models/Stock');
 const Supplier = require('../models/Supplier');
-const Product = require('../models/Product'); 
+const Product = require('../models/Product');
 
 const getStockItems = async (req, res) => {
-  const limit = parseInt(req.query.limit) || 0;
-  try {
-    const stockItems = await Stock.find({}).limit(limit).populate('supplierProducts.supplierId').populate('supplierProducts.product').lean();
-    if (!stockItems.length) {
-      return res.status(404).json({
-        error: true,
-        message: 'לא נמצאו פריטים במלאי',
-        data: null,
-      });
+    const limit = parseInt(req.query.limit) || 0;
+    try {
+        const stockItems = await Stock.find({}).limit(limit).populate('supplierProducts.supplierId').populate('supplierProducts.product').lean();
+        if (!stockItems.length) {
+            return res.status(404).json({
+                error: true,
+                message: 'No stock items found',
+                data: null,
+            });
+        }
+        res.json({
+            error: false,
+            message: 'Stock items found',
+            data: stockItems,
+        });
+    } catch (err) {
+        console.error('Error fetching stock items:', err);
+        return res.status(500).json({
+            error: true,
+            message: 'Internal server error',
+            data: null,
+        });
     }
-    res.json({
-      error: false,
-      message: 'פריטים במלאי נמצאו',
-      data: stockItems,
-    });
-  } catch (err) {
-    console.error('Error fetching stock items:', err);
-    return res.status(500).json({
-      error: true,
-      message: 'שגיאת שרת פנימית',
-      data: null,
-    });
-  }
 };
 
 const getStockItem = async (req, res) => {
-  const { _id } = req.params;
-  try {
-    const stockItem = await Stock.findById(_id).populate('supplierProducts.supplierId').lean();
-    if (!stockItem) {
-      return res.status(404).json({
-        error: true,
-        message: 'פריט מלאי לא נמצא',
-        data: null,
-      });
+    const { _id } = req.params;
+    try {
+        const stockItem = await Stock.findById(_id).populate('supplierProducts.supplierId').lean();
+        if (!stockItem) {
+            return res.status(404).json({
+                error: true,
+                message: 'Stock item not found',
+                data: null,
+            });
+        }
+        res.json({
+            error: false,
+            message: 'Stock item found',
+            data: stockItem,
+        });
+    } catch (err) {
+        console.error('Error fetching stock item:', err);
+        return res.status(500).json({
+            error: true,
+            message: 'Internal server error',
+            data: null,
+        });
     }
-    res.json({
-      error: false,
-      message: 'פריט מלאי נמצא',
-      data: stockItem,
-    });
-  } catch (err) {
-    console.error('Error fetching stock item:', err);
-    return res.status(500).json({
-      error: true,
-      message: 'שגיאת שרת פנימית',
-      data: null,
-    });
-  }
 };
 
 
@@ -63,15 +63,15 @@ const addStockItem = async (req, res) => {
         const productsWithName = await Product.find({ productName: name });
 
         for (const product of productsWithName) {
-            // חפש ספקים שה-ID של המוצר הנוכחי נמצא ישירות בתוך מערך goodsList שלהם
+            // Search for suppliers whose goodsList array directly contains the current product's ID
             const suppliers = await Supplier.find({
                 goodsList: product._id
             });
 
             suppliers.forEach(supplier => {
-                // מכיוון ש-goodsList הוא פשוט מערך של Product ObjectId-ים,
-                // אנחנו יודעים שהספק הזה מספק את המוצר הנוכחי.
-                // לכן, אנחנו יכולים ישירות להוסיף את הקשר.
+                // Since goodsList is simply an array of Product ObjectIds,
+                // we know this supplier provides the current product.
+                // Therefore, we can directly add the relationship.
                 supplierProducts.push({
                     supplierId: supplier._id,
                     product: product._id,
@@ -96,7 +96,7 @@ const addStockItem = async (req, res) => {
 };
 
 module.exports = {
-  getStockItems,
-  getStockItem,
-  addStockItem
+    getStockItems,
+    getStockItem,
+    addStockItem
 };

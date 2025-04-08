@@ -1,0 +1,80 @@
+.modal-update {
+    direction: rtl;
+    background: transparent;
+    font-family: 'Heebo', sans-serif;
+    color: #444;
+    padding-top: 70px;
+}
+
+.modal-content-update {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 1.5rem;
+    background-color: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+
+
+.xMark-aa-order {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+}
+
+h1 {
+    text-align: center;
+    font-size: 28px;
+    color: #333;
+    margin-bottom: 24px;
+}
+
+.single-form-add-order label {
+    display: block;
+    margin-top: 16px;
+    font-weight: 600;
+    color: #333;
+}
+
+.single-form-add-order select,
+.single-form-add-order input[type="number"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin-top: 8px;
+    font-size: 16px;
+}
+
+.single-form-add-order input[type="checkbox"] {
+    margin-left: 8px;
+}
+
+.single-form-add-order>div {
+    margin-top: 12px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 16px;
+}
+
+.button-form-add-order {
+    margin-top: 24px;
+    background-color: var(--orange);
+    color: var(--text);
+    border: none;
+    padding: 12px 24px;
+    border-radius: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    float: left;
+}
+
+.button-form-add-order:hover {
+    background-color: var(--text);
+    color: var(--orange);
+    border: 1px solid var(--orange);
+}

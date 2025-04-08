@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 const Supplier = require("../models/Supplier");
 
 const generateAccessToken = (supplier) => {
-    
+
     const supInfo = {
         _id: supplier._id,
         companyName: supplier.companyName,
@@ -27,11 +27,11 @@ const setRefreshTokenCookie = (res, refreshToken) => {
 
 const register = async (req, res) => {
     const { companyName, phoneNumber, representativeName, goodsList, password } = req.body;
-    if (!companyName || !phoneNumber || !representativeName || !goodsList || !password) {
+    if (!companyName || !phoneNumber || !representativeName || !goodsList || !goodsList.length || !password) {
         return res.status(400).json({ error: true, message: "All fields are required", data: null });
     }
     try {
-        const existedSupplier = await Supplier.findOne({ phoneNumber }).lean(); // בדוק לפי מספר טלפון
+        const existedSupplier = await Supplier.findOne({ phoneNumber }).lean();
         if (existedSupplier) {
             return res.status(409).json({ error: true, message: "The supplier already exists!", data: null });
         }

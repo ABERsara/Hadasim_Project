@@ -3,7 +3,6 @@
 .home-container {
     justify-content: flex-start;
     min-height: 100vh;
-	background: radial-gradient(circle, #1b2020 0%, #224242 40%, #2f5f5f 100%);
     align-items: center;
     padding: 0 30px;
 	background: radial-gradient(circle, #1b2020 0%, #224242 40%, #2f5f5f 100%);
@@ -13,8 +12,7 @@
 
 .grocery {
     position: relative;
-    /* right: 4vw; */
-    /* transform: translateY(-50%); */
+    
     width: 50%;
     height: auto;
     display: flex;
@@ -59,7 +57,7 @@
 
 
 .home-link:active {
-    background-color: #E49928;
+    background-color:var(--orange);
 }
 
 .sentence-on-market {
@@ -73,9 +71,7 @@
     line-height: 123%;
     text-align: right;
     margin-right: 5vw;
-    /* margin-left: 50vw; */
-    color: #FFFFFF;
-    /* right:12.5vw; */
+    color: var(--text);
     text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     margin-bottom: 10vw;
 }
@@ -136,7 +132,6 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    /* width: 80vw; */
     min-height: auto;
     background-color:var(--text);
     color: #1d1e3d;
@@ -162,7 +157,6 @@
 
 
 }
-/* הדף הראשי */
 .home-page-casing {
 	background: radial-gradient(circle, #1b2020 0%, #224242 40%, #2f5f5f 100%);
     height: 100%;

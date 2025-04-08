@@ -5,7 +5,7 @@ import { setCredentials } from '../../../../app/auth/authSlice';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { selectedToken } from '../../../../app/auth/authSlice'
-import PopUp from "../../Popup"
+import PopUp from "../../../layouts/Popup"
 import "./login-register.css"
 const LoginPage = () => {
     const dispatch = useDispatch();
@@ -36,7 +36,6 @@ const LoginPage = () => {
             phoneNumber: formData.phoneNumber,
             password: formData.password,
         };
-        console.log("phone number: " + formData.phoneNumber, "password: " + formData.password);
         try {
             const res = await login(supObject).unwrap();
             console.log("Response from login:", res);

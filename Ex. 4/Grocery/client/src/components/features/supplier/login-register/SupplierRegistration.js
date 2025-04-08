@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useRegisterMutation } from '../../../../app/auth/authApiSlice';
 import { useAddProductMutation, useGetAllProductsQuery } from '../../products/productApiSlice';
 import { useNavigate } from 'react-router-dom';
-import PopUp from '../../Popup';
+import PopUp from "../../../layouts/Popup"
 import "./register.css"
 
 const SupplierRegistration = () => {

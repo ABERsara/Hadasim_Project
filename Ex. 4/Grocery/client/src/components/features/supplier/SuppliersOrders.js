@@ -11,7 +11,7 @@ const SupplierOrders = () => {
   const { data: ordersObject, isLoading, isError, error } = useGetAllordersQuery();
   const [updateStatusOrder, { isSuccess: isUpdateSuccess, isLoading: isUpdateLoading }] = useUpdateStatusOrderMutation();
   const [updatedOrders, setUpdatedOrders] = useState({});
-  const [hoveredRow, setHoveredRow] = useState(null);  // נוספה סטייט לעקוב אחרי השורה המורחבת
+  const [hoveredRow, setHoveredRow] = useState(null);  
 
   const handleApprove = async (orderId) => {
     try {

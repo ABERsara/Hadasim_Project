@@ -19,7 +19,7 @@
 
 .list-table tr.hovered {
   background-color: var(--lightBlue);
-  transform: scale(1.02); /* הגדלת השורה */
+  transform: scale(1.02); 
 }
 
 .list-table,

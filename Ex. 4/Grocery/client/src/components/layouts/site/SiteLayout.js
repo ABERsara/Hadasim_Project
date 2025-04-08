@@ -1,8 +1,7 @@
-import {Outlet}from "react-router-dom"
-//תוכן האתר עצמו
+import { Outlet } from "react-router-dom"
 const SiteLayout = () => {
   return (
-    <Outlet/>
+    <Outlet />
   )
 }
 

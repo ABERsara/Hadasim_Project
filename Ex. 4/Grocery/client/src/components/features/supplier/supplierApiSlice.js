@@ -21,7 +21,7 @@ const supplierApiSlice = apiSlice.injectEndpoints({
                 method: "POST",
                 body: supplierData,
             }),
-            invalidatesTags: ["suppliers"] // שימוש במחרוזת 'suppliers'
+            invalidatesTags: ["suppliers"]
         }),
         getSupplierProducts: build.query({
             query: (supplierId) => ({

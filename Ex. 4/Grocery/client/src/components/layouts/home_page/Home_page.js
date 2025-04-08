@@ -2,8 +2,7 @@ import { Link, NavLink, Navigate, useNavigate } from "react-router-dom";
 import "./home_page.css";
 import { useEffect } from "react";
 import Navbar from "../navbar/Navbar"
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// import { faShareSquare } from '@fortawesome/free-solid-svg-icons';
+
 const HomePage = () => {
 
     useEffect(() => {
@@ -23,7 +22,7 @@ const HomePage = () => {
                         אצלנו תמצאו מגוון מוצרים טריים ואיכותיים, החל מהמזון הבסיסי ועד למוצרים מיוחדים. כל מה שאתם צריכים, במחירים שפשוט אי אפשר להתחרות בהם.
                     </div>
                     <div className="home-links more_to_read">
-                        <Link to={"/products"} className="home-link more_to_see">
+                        <Link to={"/stock"} className="home-link more_to_see">
                             למוצרים שלנו
                         </Link>
                     </div>

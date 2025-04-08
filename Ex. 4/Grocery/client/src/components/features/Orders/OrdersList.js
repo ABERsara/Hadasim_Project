@@ -5,9 +5,11 @@ import { format } from "date-fns";
 import "./orders-list.css"
 const OrdersList = () => {
     const { data: ordersObject, isError, error, isLoading, isSuccess } = useGetAllordersQuery();
-    const [updateStatusOrder, { isSuccess: isUpdateSuccess, isLoading: isUpdateLoading }] = useUpdateStatusOrderMutation();
+    const [updateStatusOrder,
+        //  { isSuccess: isUpdateSuccess, isLoading: isUpdateLoading }
+        ] = useUpdateStatusOrderMutation();
     const [updatedOrders, setUpdatedOrders] = useState({});
-    const [hoveredRow, setHoveredRow] = useState(null);  // נוספה סטייט לעקוב אחרי השורה המורחבת
+    const [hoveredRow, setHoveredRow] = useState(null);  
 
     const handleApprove = async (orderId) => {
         try {
